@@ -14,10 +14,9 @@ if(isset($_POST['signup_submit'])) {
     $user = $_POST['user'];
     $password = $_POST['password'];
     $verify = $_POST['verify'];
-    $class = $_POST['type'];
 
     //In case of any empty fields
-    if(empty($user || $password || $verify || $class)) {
+    if(empty($user || $password || $verify)) {
         header("Location: ../html/account_creation.html?error=emptyfields&username=".$user);
         exit();
     }
@@ -32,7 +31,7 @@ if(isset($_POST['signup_submit'])) {
         exit();
     }
     else {
-        $sql ="SELECT username FROM log_in WHERE username=?";
+        $sql ="SELECT login_username FROM log_in WHERE login_username=?";
         $stmt = mysqli_stmt_init($db);
         if (!mysqli_stmt_prepare($stmt,$sql)) {
             header("Location: ../html/account_creation.html?error=sqlerror");
@@ -49,7 +48,7 @@ if(isset($_POST['signup_submit'])) {
                 exit();
             }
             else {
-                $sql = "INSERT INTO log_in (username, password, class) VALUES (?, ?, ?)";
+                $sql = "INSERT INTO log_in (login_username, login_password) VALUES (?, ?)";
                 $stmt = mysqli_stmt_init($db);
                 if (!mysqli_stmt_prepare($stmt, $sql)) {
                     header("Location: ../html/account_creation.html?error=sqlerror");
@@ -58,7 +57,7 @@ if(isset($_POST['signup_submit'])) {
                 else {
                     //Hashing of the password, so it is secure
                     $hashPass = password_hash($password, PASSWORD_DEFAULT);
-                    mysqli_stmt_bind_param($stmt, "sss", $user, $hashPass, $class);
+                    mysqli_stmt_bind_param($stmt, "ss", $user, $hashPass);
                     mysqli_stmt_execute($stmt);
                     header("Location: ../html/account_creation.html?account_creation=success");
                     exit();

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sellm
- * Date: 28/01/2020
- * Time: 14:59
- */
-
 //only if it was entered through the login button
 if (isset($_POST['login_submit'])) {
 
@@ -21,7 +14,7 @@ if (isset($_POST['login_submit'])) {
         header("Location: ../html/loginform.html?error=emptyfields");
         exit();
     } else {
-        $sql = "SELECT * FROM log_in WHERE username=?;";
+        $sql = "SELECT * FROM log_in WHERE login_username=?;";
         $statement = mysqli_stmt_init($db);
 
         //error looking for information related to the username in the database/table AKA sqlerror
@@ -34,18 +27,24 @@ if (isset($_POST['login_submit'])) {
             $result = mysqli_stmt_get_result($statement);
 
             if ($row = mysqli_fetch_assoc($result)) {
-                $pwd_check = password_verify($password, $row['password']);
+                $pwd_check = password_verify($password, $row['login_password']);
                 //wrong password error
                 if($pwd_check == false){
                     header("Location: ../html/loginform.html?error=wrongpassword");
                     exit();
                 } else if ($pwd_check == true) { //Success! Login start of a session, will be closed on log off
                     session_start();
-                    $_SESSION[id] = $row['id'];
-                    $_SESSION[username] = $row['username'];
+                    $_SESSION[id] = $row['staff_ID'];
+                    $_SESSION[username] = $row['login_username'];
+
+                    //Store the type in session
+                    $typeSql = "SELECT staff_Type FROM staff WHERE staff_ID = $_SESSION[id];";
+                    $result =$db->query($typeSql);
+                    $assoc = mysqli_fetch_assoc($result);
+                    $_SESSION['user_Type']  = $assoc['staff_Type'];
 
                     //redirects to homepage since you get access, rather than going back to login form
-                    header("Location: ../html/homepage.html?login=success");
+                    header("Location: ../html/homepage.php?login=success");
                     exit();
                 } else { //any other sort of weird errors that go through the if's above will end up in wrong password
                     header("Location: ../html/loginform.html?error=wrongpassword");
