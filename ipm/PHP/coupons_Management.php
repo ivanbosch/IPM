@@ -8,16 +8,17 @@
 
 if (isset($_POST["coupon_Submission"])) {
   require 'connection.php';
+  session_start();
 
-  $blank_Type = intval($_POST['blank_Type']);
+  //initialisation of variables
+  $blank_Type = $_POST['blank_Type'];
   echo "Coupon Type: " . $blank_Type;
   $coupon_Origin = "";
   $coupon_Destination = "";
   $coupon_Date = "";
   $coupon_Time = "";
-  $user_ID = intval($_POST['id']);
+  $user_ID = $_SESSION['id'];
   echo "User ID: " . $user_ID;
-  $coupon_Number = 1000000;
   $coupon_Amount = intval($_POST['coupon_Amount']);
   echo "Coupon Amount: " . $coupon_Amount;
 
@@ -28,12 +29,9 @@ if (isset($_POST["coupon_Submission"])) {
           AND blank_Advisor_ID = '".$user_ID."'
           LIMIT 1";
   $result = mysqli_query($db, $blankSql);
-  if (mysqli_num_rows($result) == 0) {
-    echo "Blank ID: ". $blankID . "User ID: " . "<br><br>";
-  } else {
-    $row = mysqli_fetch_assoc($result);
-    $blankID = $row['blank_ID'];
-  }
+  $row = mysqli_fetch_assoc($result);
+  $blankID = $row['blank_ID'];
+
 
   //Create a ticket
   $ticketSql = "INSERT INTO tickets (ticket_ID) VALUES (NULL);";
@@ -43,7 +41,7 @@ if (isset($_POST["coupon_Submission"])) {
                 WHERE NOT EXISTS (SELECT ticket_ID FROM coupons
                 WHERE tickets.ticket_ID and coupons.ticket_ID)
                 LIMIT 1";
-  $ticketResult =$db->query($ticketSql);
+  $ticketResult =mysqli_query($db, $ticketSql);
   $row = mysqli_fetch_assoc($ticketResult);
   $ticketId = $row['ticket_ID'];
 
@@ -58,7 +56,7 @@ if (isset($_POST["coupon_Submission"])) {
            VALUES ('".$blankID."', '".$ticketId."', '".$coupon_Origin."', '".$coupon_Destination."', '".$coupon_Time."', '".$coupon_Date."')";
     $result = mysqli_query($db, $sql);
 
-  echo "Blank ID: ". $blankID . ' Ticket ID: ' . $ticketId . ' Origin: ' . $coupon_Origin . ' Destination: ' . $coupon_Destination . ' Time: ' . $coupon_Time . ' Date: ' . $coupon_Date;
+  echo "<br>Blank ID: ". $blankID . "<br>Blank Type:" . $blank_Type . ' <br>Ticket ID: ' . $ticketId . ' <br>Origin: ' . $coupon_Origin . ' <br>Destination: ' . $coupon_Destination . ' <br>Time: ' . $coupon_Time . ' <br>Date: ' . $coupon_Date;
 
   //   header("Location: ../html/coupon.html?coupon_Submission_Successful");
   //   exit();
