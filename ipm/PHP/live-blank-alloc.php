@@ -7,10 +7,11 @@ $input = filter_input_array(INPUT_POST);
 
 $username = mysqli_real_escape_string($db, $input["login_username"]);
 
-if ($input['action'] === 'edit') {
-  echo $input['action'];
-  $query = "UPDATE blanks SET blank_Advisor_ID = (SELECT staff_ID FROM log_in WHERE login_username = '".$input["login_username"]."') WHERE id = '".$input["blank_ID"]."' ";
+$validUsername = mysqli_query($db, "SELECT login_username FROM log_in WHERE login_username = $username");
 
+if ($input['action'] === 'edit' && mysqli_num_rows($validUsername) > 0) {
+  $query = "UPDATE blanks SET blank_Advisor_ID = (SELECT staff_ID FROM log_in WHERE login_username = '".$username."') WHERE blank_ID = '".$input["blank_ID"]."' ";
   mysqli_query($db, $query);
 }
+echo json_encode($input);
 ?>

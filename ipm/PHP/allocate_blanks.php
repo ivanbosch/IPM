@@ -35,7 +35,7 @@
       //while loop to go thorugh the result of the query row by row
       while($row = mysqli_fetch_assoc($result)) {
         ?>
-      <tr id="<?php echo $row['blank_ID']; ?>">
+      <tr>
         <td class="table-info"><?php echo  $row ['blank_ID']; ?></td>
         <td class="table-info"><?php echo  $row ['login_username']; ?></td>
         <td class="table-info"><?php echo  $row ['blank_Advisor_ID']; ?></td>
@@ -67,6 +67,7 @@ onSuccess: function(data, textStatus, jqXHR) {
     console.log(data);
     console.log(textStatus);
     console.log(jqXHR);
+    location.reload();
 },
 onFail: function(jqXHR, textStatus, errorThrown) {
     console.log('onFail(jqXHR, textStatus, errorThrown)');
@@ -84,6 +85,5 @@ onAjax: function(action, serialize) {
 }
   });
 });
-
 </script>
 </body>
