@@ -11,13 +11,13 @@ if (isset($_POST["coupon_Submission"])) {
   session_start();
 
   //initialisation of variables
-  $blank_Type = $_POST['blank_Type'];
+  $blank_Type = intval($_POST['blank_Type']);
   echo "Coupon Type: " . $blank_Type;
   $coupon_Origin = "";
   $coupon_Destination = "";
   $coupon_Date = "";
   $coupon_Time = "";
-  $user_ID = $_SESSION['id'];
+  $user_ID = intval($_SESSION['id']);
   echo "User ID: " . $user_ID;
   $coupon_Amount = intval($_POST['coupon_Amount']);
   echo "Coupon Amount: " . $coupon_Amount;
@@ -28,10 +28,14 @@ if (isset($_POST["coupon_Submission"])) {
           WHERE blanks.blank_ID = coupons.blank_ID) AND blank_Type = '".$blank_Type."'
           AND blank_Advisor_ID = '".$user_ID."'
           LIMIT 1";
-  $result = mysqli_query($db, $blankSql);
-  $row = mysqli_fetch_assoc($result);
-  $blankID = $row['blank_ID'];
-
+  $stmt = mysqli_stmt_init($db);
+  if (!mysqli_stmt_prepare($stmt, $blankSql)){
+    echo 'Failed to prepare statement';
+  } else {
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $blank_Row = mysqli_fetch_assoc($result);
+  }
 
   //Create a ticket
   $ticketSql = "INSERT INTO tickets (ticket_ID) VALUES (NULL);";
@@ -53,13 +57,13 @@ if (isset($_POST["coupon_Submission"])) {
 
     //Insertion into coupons
     $sql = "INSERT INTO coupons (blank_ID, ticket_ID, coupon_Origin, coupon_Destination, coupon_Time, coupon_Date)
-           VALUES ('".$blankID."', '".$ticketId."', '".$coupon_Origin."', '".$coupon_Destination."', '".$coupon_Time."', '".$coupon_Date."')";
+           VALUES ('".$blank_Row["blank_ID"]."', '".$ticketId."', '".$coupon_Origin."', '".$coupon_Destination."', '".$coupon_Time."', '".$coupon_Date."')";
     $result = mysqli_query($db, $sql);
 
-  echo "<br>Blank ID: ". $blankID . "<br>Blank Type:" . $blank_Type . ' <br>Ticket ID: ' . $ticketId . ' <br>Origin: ' . $coupon_Origin . ' <br>Destination: ' . $coupon_Destination . ' <br>Time: ' . $coupon_Time . ' <br>Date: ' . $coupon_Date;
+  // echo "<br>Blank ID: ". $blank_Row['blank_ID'] . "<br>Blank Type:" . $blank_Type . ' <br>Ticket ID: ' . $ticketId . ' <br>Origin: ' . $coupon_Origin . ' <br>Destination: ' . $coupon_Destination . ' <br>Time: ' . $coupon_Time . ' <br>Date: ' . $coupon_Date;
 
-  //   header("Location: ../html/coupon.html?coupon_Submission_Successful");
-  //   exit();
+    header("Location: ../html/coupon.html?coupon_Submission_Successful");
+    exit();
   }
 }
 else {
