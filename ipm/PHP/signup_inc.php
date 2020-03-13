@@ -11,12 +11,12 @@ if(isset($_POST['signup_submit'])) {
     require 'connection.php';
 
     //declaration
-    $user = $_POST['user'];
-    $password = $_POST['password'];
-    $verify = $_POST['verify'];
-    $name = $_POST['name'];
-    $surname = $_POST['surname'];
-    $email = $_POST['email'];
+    $user = mysqli_real_escape_string($_POST['user']);
+    $password = mysqli_real_escape_string($_POST['password']);
+    $verify = mysqli_real_escape_string($_POST['verify']);
+    $name = mysqli_real_escape_string($_POST['name']);
+    $surname = mysqli_real_escape_string($_POST['surname']);
+    $email = mysqli_real_escape_string($_POST['email']);
     $type = $_POST['type'];
 
     //In case of any empty fields
