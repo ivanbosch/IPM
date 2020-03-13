@@ -1,13 +1,14 @@
+
 $(document).ready(function(){
-  $('#editable-table').Tabledit({
-    url: '../live-edits/live-blank-edit.php',
+  $('#editable-staff').Tabledit({
+    url: '../live-edits/live-staff-edit.php',
     deleteButton: false,
     editButton: false,
     restoreButton: false,
     hideIdentifier: false,
     columns: {
-      identifier: [0, 'blank_ID'],
-      editable: [[1, 'login_username']]
+      identifier: [0, 'staff_ID'],
+      editable: [[5, 'staff_Commission']]
     },
     onDraw: function() {
     console.log('onDraw()');
@@ -18,6 +19,7 @@ onSuccess: function(data, textStatus, jqXHR) {
     console.log(textStatus);
     console.log(jqXHR);
     location.reload();
+
 },
 onFail: function(jqXHR, textStatus, errorThrown) {
     console.log('onFail(jqXHR, textStatus, errorThrown)');
