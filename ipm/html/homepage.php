@@ -66,7 +66,7 @@
           <div class='homepage_Lists'>
             <h2>Sales</h2>
             <ul>
-              <li><a href='generate_Coupons.php' target ='_blank'>Create Sale</a></li>
+              <li><a href='sales.php' target ='_blank'>Create Sale</a></li>
               <li><a href='' target ='_blank'>Cancel Ticket</a></li>
             </ul>
           </div>";

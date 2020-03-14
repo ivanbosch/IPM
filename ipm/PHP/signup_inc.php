@@ -29,11 +29,11 @@ if(isset($_POST['signup_submit'])) {
         header("Location: ../html/a_Account_Creation.php?error=invalidusername");
         exit();
     }
-    else if (!preg_match("/^[a-zA-Z0-9]*$/" , $name)) {
+    else if (!preg_match("/^[a-zA-Z]*$/" , $name)) {
         header("Location: ../html/a_Account_Creation.php?error=invalidname");
         exit();
     }
-    else if (!preg_match("/^[a-zA-Z0-9]*$/" , $surname)) {
+    else if (!preg_match("/^[a-zA-Z]*$/" , $surname)) {
         header("Location: ../html/a_Account_Creation.php?error=invalidsurname");
         exit();
     }
@@ -46,7 +46,7 @@ if(isset($_POST['signup_submit'])) {
         header("Location: ../html/a_Account_Creation.php?error=invalidpassword");
         exit();
     }
-    else {
+    else { //Check if the login username is already taken
         $sql ="SELECT login_username FROM log_in WHERE login_username=?;";
         $stmt = mysqli_stmt_init($db);
         if (!mysqli_stmt_prepare($stmt,$sql)) {
@@ -63,7 +63,7 @@ if(isset($_POST['signup_submit'])) {
                 header("Location: ../html/a_Account_Creation.php?error=usernametaken");
                 exit();
             }
-            else {
+            else { //insert the values into the staff table
                 $sql = "INSERT INTO staff (staff_Type, staff_Name, staff_Surname, staff_Email) VALUES (?, ?, ?, ?);";
                 $stmt = mysqli_stmt_init($db);
                 if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -73,7 +73,7 @@ if(isset($_POST['signup_submit'])) {
                 else {
                     mysqli_stmt_bind_param($stmt, "ssss", $type, $name, $surname, $email);
                     mysqli_stmt_execute($stmt);
-                    //INSERT INTO STAFF
+                    //insert the values into the log_in table
                     $sql = "INSERT INTO log_in (login_username, login_password) VALUES (?, ?)";
                     $stmt = mysqli_stmt_init($db);
                     if (!mysqli_stmt_prepare($stmt, $sql)) {

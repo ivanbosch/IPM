@@ -12,15 +12,12 @@ if (isset($_POST["coupon_Submission"])) {
 
   //initialisation of variables
   $blank_Type = intval($_POST['blank_Type']);
-  echo "Coupon Type: " . $blank_Type;
   $coupon_Origin = "";
   $coupon_Destination = "";
   $coupon_Date = "";
   $coupon_Time = "";
   $user_ID = intval($_SESSION['id']);
-  echo "User ID: " . $user_ID;
   $coupon_Amount = intval($_POST['coupon_Amount']);
-  echo "Coupon Amount: " . $coupon_Amount;
 
   //Generate blank
   $blankSql = "SELECT blank_ID FROM blanks
@@ -43,7 +40,7 @@ if (isset($_POST["coupon_Submission"])) {
   //Select a ticket
   $ticketSql = "SELECT ticket_ID from tickets
                 WHERE NOT EXISTS (SELECT ticket_ID FROM coupons
-                WHERE tickets.ticket_ID and coupons.ticket_ID)
+                WHERE tickets.ticket_ID = coupons.ticket_ID)
                 LIMIT 1";
   $ticketResult =mysqli_query($db, $ticketSql);
   $row = mysqli_fetch_assoc($ticketResult);
@@ -60,14 +57,14 @@ if (isset($_POST["coupon_Submission"])) {
            VALUES ('".$blank_Row["blank_ID"]."', '".$ticketId."', '".$coupon_Origin."', '".$coupon_Destination."', '".$coupon_Time."', '".$coupon_Date."')";
     $result = mysqli_query($db, $sql);
 
-  // echo "<br>Blank ID: ". $blank_Row['blank_ID'] . "<br>Blank Type:" . $blank_Type . ' <br>Ticket ID: ' . $ticketId . ' <br>Origin: ' . $coupon_Origin . ' <br>Destination: ' . $coupon_Destination . ' <br>Time: ' . $coupon_Time . ' <br>Date: ' . $coupon_Date;
+   echo "<br>Blank ID: ". $blank_Row['blank_ID'] . "<br>Blank Type:" . $blank_Type . ' <br>Ticket ID: ' . $ticketId . ' <br>Origin: ' . $coupon_Origin . ' <br>Destination: ' . $coupon_Destination . ' <br>Time: ' . $coupon_Time . ' <br>Date: ' . $coupon_Date;
 
-    header("Location: ../html/coupon.html?coupon_Submission_Successful");
+    header("Location: ../html/sales.php?coupon_Submission_Successful");
     exit();
   }
 }
 else {
-  header("Location: ../html/generate_Coupons.php?error=unauthorizedaccess");
+  header("Location: ../html/sales.php?error=unauthorizedaccess");
   exit();
 }
 ?>
