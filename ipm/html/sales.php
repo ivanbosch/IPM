@@ -82,48 +82,72 @@
 
       function couponsBoxes(){
         let generatedHTML ="";
-        let i;
+        let i = 0;
         let amount = document.getElementById("coupon_Amount").value;
-        let generation = `
-              <label for='coupon_Origin${i}'>Enter origin: </label>
-              <input type='text' name='coupon_Origin${i}' placeholder='Enter Origin..' required>
-              <label for='coupon_Destination${i}'>Enter destination: </label>
-              <input type='text' name='coupon_Destination${i}' placeholder='Enter Destination..' required><br>
-              <label for='coupon_Date'>Select Coupon Date:</label>
-              <input type='date' name='coupon_Date${i}' id='coupon_Date'>
-              <label for='coupon_Time'>Select Coupon Time:</label>
-              <input type='time' name='coupon_Time${i}' id='coupon_Time'>
-            <br>`;
-        let submit = "";
         const selection = document.getElementById("blank_Type").value;
         switch (selection) {
           case '420':
-            let j = 0;
-            for (i = 0; i < amount; i++){
-              generatedHTML += generation;
+            while (i < amount) {
+              generatedHTML += `
+                    <label for='coupon_Origin${i}'>Enter origin: </label>
+                    <input type='text' name='coupon_Origin${i}' placeholder='Enter Origin..' required>
+                    <label for='coupon_Destination${i}'>Enter destination: </label>
+                    <input type='text' name='coupon_Destination${i}' placeholder='Enter Destination..' required><br>
+                    <label for='coupon_Date'>Select Coupon Date:</label>
+                    <input type='date' name='coupon_Date${i}' id='coupon_Date'>
+                    <label for='coupon_Time'>Select Coupon Time:</label>
+                    <input type='time' name='coupon_Time${i}' id='coupon_Time'>
+                  <br>`;
+              i++;
             }
             break;
 
           case '201':
-            for (i = 0; i < amount; i++){
-              generatedHTML += generation;
+            while (i < amount){
+              generatedHTML += `
+                    <label for='coupon_Origin${i}'>Enter origin: </label>
+                    <input type='text' name='coupon_Origin${i}' placeholder='Enter Origin..' required>
+                    <label for='coupon_Destination${i}'>Enter destination: </label>
+                    <input type='text' name='coupon_Destination${i}' placeholder='Enter Destination..' required><br>
+                    <label for='coupon_Date'>Select Coupon Date:</label>
+                    <input type='date' name='coupon_Date${i}' id='coupon_Date'>
+                    <label for='coupon_Time'>Select Coupon Time:</label>
+                    <input type='time' name='coupon_Time${i}' id='coupon_Time'>
+                  <br>`;
+              i++;
             }
             break;
 
           case '101':
-            generatedHTML += generation;
+            generatedHTML += `
+                  <label for='coupon_Origin${i}'>Enter origin: </label>
+                  <input type='text' name='coupon_Origin${i}' placeholder='Enter Origin..' required>
+                  <label for='coupon_Destination${i}'>Enter destination: </label>
+                  <input type='text' name='coupon_Destination${i}' placeholder='Enter Destination..' required><br>
+                  <label for='coupon_Date'>Select Coupon Date:</label>
+                  <input type='date' name='coupon_Date${i}' id='coupon_Date'>
+                  <label for='coupon_Time'>Select Coupon Time:</label>
+                  <input type='time' name='coupon_Time${i}' id='coupon_Time'>
+                <br>`;
             break;
 
           case '444':
-            for (i = 0; i < amount; i++){
-              generatedHTML += generation;
+            while (i < amount) {
+              generatedHTML += `
+                    <label for='coupon_Origin${i}'>Enter origin: </label>
+                    <input type='text' name='coupon_Origin${i}' placeholder='Enter Origin..' required>
+                    <label for='coupon_Destination${i}'>Enter destination: </label>
+                    <input type='text' name='coupon_Destination${i}' placeholder='Enter Destination..' required><br>
+                    <label for='coupon_Date'>Select Coupon Date:</label>
+                    <input type='date' name='coupon_Date${i}' id='coupon_Date'>
+                    <label for='coupon_Time'>Select Coupon Time:</label>
+                    <input type='time' name='coupon_Time${i}' id='coupon_Time'>
+                  <br>`;
+              i++;
             }
             break;
-          default:
-            document.getElementById("coupons").innerHTML = "";
         }
         document.getElementById("coupons").innerHTML = generatedHTML;
-        document.getElementById("submit").innerHTML = submit;
       }
 
       function card() {
@@ -159,8 +183,8 @@
             </select>
           </div>
           <p id="blanks"></p>
-          <p id="amount"></div>
-          <p id="coupons"></div>
+          <div id="amount"></div>
+          <div id="coupons"></div>
           <?php
           $result = $db->query("SELECT * from currency;");
 
@@ -187,7 +211,8 @@
           <div id="card"></div>
           <label for="sales_Charge">Amount to pay: </label>
           <input type="number" name="sales_Charge">
-          <div id="submit"><button type='submit' id='submit' name='coupon_Submission'>Submit Coupons</button></div>
+          <button type='submit' id='submit' name='coupon_Submission'>Submit</button>
+          <div id="submit"></div>
         </form>
       </div>
 
