@@ -47,7 +47,10 @@ if (isset($_POST["coupon_Submission"])) {
     header("Location: ../html/sales.php?error=NoBlanksAvailable");
     mysqli_close($db);
     exit();
+  } else {
+    $blank_Row = mysqli_fetch_assoc($blankSTMT);
   }
+
 
   //Create a ticket
   $ticketSql = "INSERT INTO tickets (ticket_ID) VALUES (NULL);";
@@ -110,12 +113,9 @@ if (isset($_POST["coupon_Submission"])) {
       mysqli_stmt_bind_param($salesSTMT, "siiiiiis", $saleType, $user_ID, $currencyID, $currencyRate['currency_Rate'], $customerID, $ticketId, $charge, $paymentType);
       mysqli_stmt_execute($salesSTMT);
 
-      echo "<br>Blank ID: ". $blank_Row['blank_ID'] . "<br>Blank Type:" . $blank_Type . ' <br>Ticket ID: ' . $ticketId . ' <br>Origin: ' . $coupon_Origin . ' <br>Destination: ' . $coupon_Destination . ' <br>Time: ' . $coupon_Time . ' <br>Date: ' . $coupon_Date;
-
-      // header("Location: ../html/sales.php?saleSuccessful");
-      // exit();
+      header("Location: ../html/sales.php?saleSuccessful");
+      exit();
     }
-
     mysqli_close($db);
 }
 
