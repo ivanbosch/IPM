@@ -61,7 +61,7 @@
       }
     }
     if (isset($_SESSION['user_Type'])) {
-      if($_SESSION['user_Type'] == 'Advisor') {
+      if($_SESSION['user_Type'] == 'Advisor' || $_SESSION['user_Type'] == 'Management') {
         echo "
           <div class='homepage_Lists'>
             <h2>Sales</h2>
