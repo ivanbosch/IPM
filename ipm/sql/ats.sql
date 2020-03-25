@@ -213,14 +213,14 @@ CREATE TABLE `staff` (
   `staff_Name` tinytext,
   `staff_Surname` tinytext,
   `staff_Email` varchar(100) DEFAULT NULL,
-  `staff_Comission` int(2) NOT NULL
+  `staff_Commission` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`staff_ID`, `staff_Type`, `staff_Name`, `staff_Surname`, `staff_Email`, `staff_Comission`) VALUES
+INSERT INTO `staff` (`staff_ID`, `staff_Type`, `staff_Name`, `staff_Surname`, `staff_Email`, `staff_Commission`) VALUES
 (200, 'Advisor', '555', '555', '123@gmail.com', 0),
 (201, 'Advisor', '666', '666', 'bosch.ivan99@gmail.com', 0);
 
