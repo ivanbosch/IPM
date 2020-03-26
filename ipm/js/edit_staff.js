@@ -8,7 +8,7 @@ $(document).ready(function(){
     hideIdentifier: false,
     columns: {
       identifier: [0, 'staff_ID'],
-      editable: [[5, 'staff_Commission']]
+      editable: [[5, 'commission_ID']]
     },
     onDraw: function() {
     console.log('onDraw()');
