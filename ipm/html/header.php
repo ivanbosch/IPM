@@ -24,7 +24,7 @@
                   echo '<div>'.$_SESSION["id"].'</div> <div>'.$_SESSION["username"].'</div>';
                   echo '<form action="../PHP/logout.php" method="post"> <button type="submit" name="logout-submit">Logout</button> </form>';
               } else { //in case of being logged out show the login form, username and password can be entered here.
-                  echo '<form action="loginform.html"><button type="submit">Login</button></form>';
+                  echo '<form action="../html/loginform.html"><button type="submit">Login</button></form>';
               }
           ?>
       </div>

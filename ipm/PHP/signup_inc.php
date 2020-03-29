@@ -11,34 +11,26 @@ if(isset($_POST['signup_submit'])) {
     require 'connection.php';
 
     //declaration
-    $user = mysqli_real_escape_string($_POST['user']);
-    $password = mysqli_real_escape_string($_POST['password']);
-    $verify = mysqli_real_escape_string($_POST['verify']);
-    $name = mysqli_real_escape_string($_POST['name']);
-    $surname = mysqli_real_escape_string($_POST['surname']);
-    $email = mysqli_real_escape_string($_POST['email']);
+    $password = mysqli_real_escape_string($db, $_POST['password']);
+    $verify = mysqli_real_escape_string($db, $_POST['verify']);
+    $name = mysqli_real_escape_string($db, $_POST['name']);
+    $surname = mysqli_real_escape_string($db, $_POST['surname']);
+    $email = mysqli_real_escape_string($db, $_POST['email']);
+    $user = $name.'.'.$surname;
     $type = $_POST['type'];
 
     //In case of any empty fields
-    if(empty($user || $password || $verify || $name || $surname || $email || $type)) {
+    if(empty($password || $verify || $name || $surname || $email || $type)) {
         header("Location: ../html/a_Account_Creation.php?error=emptyfields");
         exit();
     }
     //Username can only have the specified characters
-    else if (!preg_match("/^[a-zA-Z0-9]*$/" , $user)) {
-        header("Location: ../html/a_Account_Creation.php?error=invalidusername");
-        exit();
-    }
     else if (!preg_match("/^[a-zA-Z]*$/" , $name)) {
         header("Location: ../html/a_Account_Creation.php?error=invalidname");
         exit();
     }
     else if (!preg_match("/^[a-zA-Z]*$/" , $surname)) {
         header("Location: ../html/a_Account_Creation.php?error=invalidsurname");
-        exit();
-    }
-    else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("Location: ../html/a_Account_Creation.php?error=invalidemail");
         exit();
     }
     //Password and verify have to match
