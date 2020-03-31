@@ -13,5 +13,8 @@
   WHERE blank_ID = '".$bID."' ");
   header("Location: blanks.php");
   exit();
+} else {
+  header("Location: ../html/homepage.php");
+  exit();
 }
 ?>

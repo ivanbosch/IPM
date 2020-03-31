@@ -44,8 +44,16 @@ if (isset($_POST['login_submit'])) {
                     $_SESSION['user_Type']  = $assoc['staff_Type'];
 
                     //redirects to homepage since you get access, rather than going back to login form
-                    header("Location: ../html/homepage.php?login=success");
-                    exit();
+                    $alertSQL = 'SELECT * FROM customers WHERE customer_Type IS NOT NULL AND customer_Debt IS NOT NULL;';
+                    $alertResult = mysqli_query($db, $alertSQL);
+                    if (mysqli_num_rows($alertResult) == 0) {
+                      header("Location: ../html/homepage.php?login=success");
+                      exit();
+                    } else {
+                      header("Location: ../html/alerts.php?login=success");
+                      exit();
+                    }
+
                 } else { //any other sort of weird errors that go through the if's above will end up in wrong password
                     header("Location: ../html/loginform.html?error=wrongpassword");
                     exit();

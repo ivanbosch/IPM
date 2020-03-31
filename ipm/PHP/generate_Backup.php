@@ -51,6 +51,6 @@ if(isset($_POST['backup_Submit'])) {
   header("Location: ../html/backups.php?backupsuccessful");
   exit();
 } else {
-  header("Location: ../html/backups.php?error");
+  header("Location: ../html/backups.php?error=NoPermission");
   exit();
 }

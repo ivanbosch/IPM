@@ -6,6 +6,7 @@
     <title></title>
   </head>
   <body class="alert_Container">
+
     <h1>Late Payments:</h1>
     <?php
 
@@ -32,6 +33,7 @@
         }
       }
     ?>
+    <h3><a href="homepage.php">Go to Homepage<a/></h3>
 
   </body>
 </html>
