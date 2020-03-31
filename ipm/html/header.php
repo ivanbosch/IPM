@@ -9,11 +9,7 @@
       <div>
         <nav>
             <ul>
-                <li><a href="homepage.html">Homepage</a>
-                <li><a href="administrator.html">Administrator</a>
-                <li><a href="management.html">Management</a>
-                <li><a href="sales.html">Sales</a></li>
-                <li><a href="reports.html">Reports</a></li>
+                <li><a href="homepage.php">Homepage</a>
             </ul>
         </nav>
       </div>

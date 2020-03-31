@@ -51,7 +51,6 @@ if (isset($_POST["coupon_Submission"])) {
     $blank_Row = mysqli_fetch_assoc($blankSTMT);
   }
 
-
   //Create a ticket
   $ticketSql = "INSERT INTO tickets (ticket_ID) VALUES (NULL);";
   $db->query($ticketSql);
@@ -100,6 +99,13 @@ if (isset($_POST["coupon_Submission"])) {
     $customerExec = mysqli_query($db, $customerSQL);
     $customerResult = mysqli_fetch_assoc($customerExec);
     $customerID = $customerResult['customer_ID'];
+    if (isset($customerResult['discount_ID'])) {
+      $x = $customerResult["discount_ID"];
+      $discountSQL = "SELECT * FROM discounts WHERE discount_ID='$x'";
+      $discountResult = $db->query($discountSQL);
+      $discount = $discountResult->fetch_assoc();
+      $charge = ($charge*(100-$discount['discount_Amount']))/100;
+    }
     //Get the currency rate so that it can be inserted into the sales table
     $currencySQL = "SELECT * FROM currency WHERE currency_ID = '".$currencyID."'";
     $currencyResult = mysqli_query($db, $currencySQL);
