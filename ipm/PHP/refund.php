@@ -20,7 +20,7 @@ if (isset($_POST['refund_Submission'])) {
 
   //String saved to file
   $string = "Sale ID: ".$saleID." Type: ".$result['sales_Type']." Customer Refunded: ".$customer['name']." ".$customer['surname']
-            ." Customer Email: ".$customer['email']. " Amount Refunded: ".$result['sales_Charge']." Refund made by:".$_SESSION['id']."\n";
+            ." Customer Email: ".$customer['email']. " Amount Refunded: ".$result['sales_Charge']. " Ticket Refunded: ".$ticketID." Refund made by:".$_SESSION['id']."\n";
 
   //Open, Write and Close file
   $handle = fopen($file, 'a') or die("Unable to open file!");
