@@ -8,8 +8,24 @@ session_start();
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery-tabledit@1.0.0/jquery.tabledit.min.js"></script>
   <script src="../js/edit_blank_alloc.js"></script>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<style>
+* {
+  box-sizing: border-box;
+}
+#blankSearch, #advisorSearch {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+</style>
 <body>
   <?php
     $usernameQuery = mysqli_query($db, "SELECT login_username, staff_ID FROM log_in");
@@ -28,12 +44,26 @@ session_start();
   <select id ="blank" name="blank">
     <?php
     while($blank = mysqli_fetch_assoc($blankQuery))
-     echo "<option value = '".$blank['blank_ID']."'>" . $blank['blank_Type']. "</option>";
+     echo "<option value = '".$blank['blank_Type']."'>" . $blank['blank_Type']. "</option>";
      ?>
   </select>
-
+  <label for="amount">Choose amount:</label>
+  <input type="text" id="amount" name ="amount">
   <button type="submit" name ="submit"  class="btn btn-success">Allocate</button>
+  <?php
+    $quantity = mysqli_query($db, "SELECT COUNT(blank_Type) as maximum, blank_Type from blanks where blank_Advisor_ID is null group by blank_Type desc");
+    echo "<br> Maximum allocation: <br>";
+    while($type = mysqli_fetch_assoc($quantity)){
+      echo $type['blank_Type']. ": ". $type['maximum']. " <br>";
+    }
+  ?>
   </form>
+
+  <!-- Search for blank type-->
+  <input type="text" id="blankSearch" onkeyup="search(5, id)" placeholder="Search for blank..." name="search">
+
+  <input type="text" id="advisorSearch" onkeyup="search(1, id)" placeholder="Search for username..." name="search">
+
 <table id= "editable-table" class="table">
   <thead class="thead-dark">
     <tr>
@@ -71,4 +101,24 @@ session_start();
  <?php } ?>
 </tbody>
 </table>
+<script>
+function search(a, b) {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById(b);
+  filter = input.value.toUpperCase();
+  table = document.getElementById("editable-table");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[a];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
 </body>
