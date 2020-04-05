@@ -35,6 +35,17 @@ if (isset($_POST["coupon_Submission"])) {
   $charge =  $_POST['sales_Charge'];
   $coupon_Amount = intval($_POST['coupon_Amount']);
 
+  if (isset($_POST['late_Payment'])) {
+    $query = $db->query("SELECT customer_Type, customer_Debt FROM customers WHERE customer_Email = '$customerEmail'");
+    $result = $query->fetch_assoc();
+    if ($result['customer_Type'] == 'Regular' || $result['customer_Type'] == 'Valued') {
+      $debt = $result['customer_Debt'] + $charge;
+      $db->query("UPDATE customers SET customer_Debt='$debt' WHERE customer_Email = '$customerEmail'");
+    } else {
+      header("Location: ../html/sales.php?error=NotEligibleCustomer");
+      exit();
+      }
+  }
   //Generate blank
   $blankSql = "SELECT blank_ID FROM blanks
           WHERE NOT EXISTS (SELECT blank_ID FROM coupons

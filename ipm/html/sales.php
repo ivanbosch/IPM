@@ -168,6 +168,7 @@
   </head>
 
   <body>
+    <h3>Sale</h3>
     <div class="sales_container">
       <!--First element of the container the report sale form-->
       <div>
@@ -204,11 +205,20 @@
           <div id="card"></div>
           <label for="sales_Charge">Amount to pay: </label>
           <input type="number" name="sales_Charge" min="1" required>
+          <input type="checkbox" name="late_Payment" value="true">
+          <label for="late_Payment">Is a Late Payment?</label><br>
           <button type='submit' id='submit' name='coupon_Submission'>Submit</button>
           <div id="submit"></div>
         </form>
       </div>
-
+      <div>
+        <h3>Refund a Sale</h3>
+        <form action="../PHP/refund.php" method="post">
+          <label for="refundID">Enter ticket:</label>
+          <input type="text" name="refundID"/>
+          <button type="submit" name="refund_Submission">Submit</button>
+        </form>
+      </div>
       <!--Second element of the container AKA the table that shows all the sales so far -->
       <div>
         <table class="table">
