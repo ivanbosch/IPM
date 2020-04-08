@@ -15,11 +15,18 @@
       let selection = document.getElementById("sale_Type").value;
       switch (selection) {
         case "Interline":
+        document.getElementById("Currency").innerHTML =
+        `<label for='currency'>Select a currency: </label><select id='currency' name='currency_ID'>
+        <option value='1'>Dollars</option>
+        <option value='2'>Argentinian Pesos</option></select>`;
           value1 = "444";
           value2 = "420";
 
           break;
         case "Domestic":
+          document.getElementById("Currency").innerHTML =
+          `<label for='currency'>Select a currency: </label><select id='currency' name='currency_ID'>
+          <option value='2'>Argentinian Pesos</option></select>`;
           value1 = "201";
           value2 = "101";
 
@@ -152,7 +159,7 @@
 
       function card() {
         if (document.getElementById("payment_Type").value === "Card") {
-          document.getElementById("card").innerHTML = "<label for='card_Digits'>Enter last 4 card digits:</label><input name='card_Digits' placeholder='xxxx'>";
+          document.getElementById("card").innerHTML = "<label for='card_Digits'>Enter card digits:</label><input name='card_Digits' minlength='16' maxlength='16' required>";
         } else {
           document.getElementById("card").innerHTML = "";
         }
@@ -161,18 +168,19 @@
   </head>
 
   <body>
+    <h3>Sale</h3>
     <div class="sales_container">
       <!--First element of the container the report sale form-->
       <div>
         <form method="post" action="../PHP/sales_inc.php">
           <div> <!-- ENTER CUSTOMER DETAILS SUCH AS NAME, SURNAME, EMAIL -->
             <label for="customer_Name">Enter Name: </label>
-            <input type="text" name="customer_Name">
+            <input type="text" name="customer_Name" required>
             <label for="customer_Surname">Enter Surname: </label>
-            <input type="text" name="customer_Surname">
+            <input type="text" name="customer_Surname" required>
             <br>
             <label for="email">Enter Email:</label>
-            <input type="email" name="customer_Email">
+            <input type="email" name="customer_Email" required>
           </div>
           <div> <!--SELECT SALE TYPE, THEN SELECT BLANK TYPE, THEN SELECT AMOUNT -->
             <label for="sale_Type">Choose sale type: </label>
@@ -185,21 +193,7 @@
           <p id="blanks"></p>
           <div id="amount"></div>
           <div id="coupons"></div>
-          <?php
-          $result = $db->query("SELECT * from currency;");
-
-          echo "<div><label for='currency'>Select a currency: </label><select id='currency' name='currency_ID'>";
-
-          while ($row = $result->fetch_assoc()) {
-            unset($id, $name);
-            $id = $row['currency_ID'];
-            $name = $row['currency_Name'];
-            echo '<option value="'.$id.'">'.$name.'</option>';
-          }
-
-          echo "</select></div>";
-
-          ?>
+          <div id="Currency"></div>
           <div>
             <label for="payment_Type">Select payment type:</label>
             <select id="payment_Type" name="payment_Type" onchange="card();">
@@ -210,54 +204,20 @@
           </div>
           <div id="card"></div>
           <label for="sales_Charge">Amount to pay: </label>
-          <input type="number" name="sales_Charge">
+          <input type="number" name="sales_Charge" min="1" required>
+          <input type="checkbox" name="late_Payment" value="true">
+          <label for="late_Payment">Is a Late Payment?</label><br>
           <button type='submit' id='submit' name='coupon_Submission'>Submit</button>
           <div id="submit"></div>
         </form>
       </div>
-
-      <!--Second element of the container AKA the table that shows all the sales so far -->
       <div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Sale Type</th>
-              <th>Customer Name</th>
-              <th>Staff Name</th>
-              <th>Currency</th>
-              <th>Exchange Rate</th>
-              <th>Ticket</th>
-              <th>Payment Type</th>
-              <th>Card_Digits</th>
-              <th>Amount Charged</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            $sale_query = "SELECT * FROM sales INNER JOIN staff ON sales.staff_ID = staff.staff_ID
-                           INNER JOIN currency ON sales.currency_ID = currency.currency_ID
-                           INNER JOIN customers ON sales.customer_ID = customers.customer_ID;";
-
-            $sale_result = mysqli_query($db, $sale_query);
-
-            while($row = mysqli_fetch_assoc($sale_result)) {
-              ?>
-              <tr>
-                <td class="table-info"><?php echo $row['sales_Type']; ?></td>
-                <td class="table-info"><?php echo $row['customer_Name'] ." ". $row['customer_Surname']; ?></td>
-                <td class="table-info"><?php echo $row['staff_Name'] ." ". $row['staff_Surname'];?></td>
-                <td class="table-info"><?php echo $row['currency_Name']; ?></td>
-                <td class="table-info"><?php echo $row['currency_Rate']; ?></td>
-                <td class="table-info"><?php echo $row['ticket_ID']; ?></td>
-                <td class="table-info"><?php echo $row['payment_Type']; ?></td>
-                <td class="table-info"><?php echo $row['card_Digits']; ?></td>
-                <td class="table-info"><?php echo $row['sales_Charge']; ?></td>
-              </tr>
-            <?php
-            }
-            ?>
-          </tbody>
-        </table>
+        <h3>Refund a Sale</h3>
+        <form action="../PHP/refund.php" method="post">
+          <label for="refundID">Enter ticket:</label>
+          <input type="text" name="refundID"/>
+          <button type="submit" name="refund_Submission">Submit</button>
+        </form>
       </div>
     </div>
   </body>

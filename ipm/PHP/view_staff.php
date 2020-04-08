@@ -1,6 +1,4 @@
-<?php require "../PHP/connection.php";
-session_start();
-?>
+<?php include '../html/header.php'; ?>
 
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
