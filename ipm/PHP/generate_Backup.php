@@ -30,7 +30,7 @@ if(isset($_POST['backup_Submit'])) {
         for ($j=0; $j<$num_fields; $j++) {
           $row[$j] = addslashes($row[$j]);
           if (isset($row[$j])) {
-            $return .= '"'.$row[$j].'"';
+            $return .= "'".$row[$j]."'";
           } else {
             $return .= '""';
           }
@@ -45,6 +45,7 @@ if(isset($_POST['backup_Submit'])) {
   }
 
   $handle = fopen($filename, 'w+');
+  fwrite($handle, "SET foreign_key_checks = 0;\n");
   fwrite($handle, $return);
   fclose($handle);
 
