@@ -9,7 +9,6 @@
     if (isset($_SESSION['user_Type'])) {
       if ($_SESSION['user_Type'] == 'Management') {
         echo "
-<<<<<<< HEAD
         <div class='col-md'>
           <ul class='hPageActive'>
             <h4>Management</h4>
@@ -18,16 +17,6 @@
             <li><a href='../PHP/view_staff.php'>Set Commission Rate</a></li>
             <li><a href='../PHP/discounts.php'>Set Customer Discount</a></li>
             <li><a href='../PHP/customer.php'>Set Customer Status</a></li>
-=======
-        <div class='homepage_Lists'>
-          <h2>Management</h2>
-          <ul>
-            <li><a href='../PHP/view_staff.php' target ='_blank'>View Travel Advisors</a></li>
-            <li><a href='../PHP/blanks.php' target ='_blank'>Allocate Blanks</a></li>
-            <li><a href='../PHP/view_staff.php' target ='_blank'>Set Commission Rate</a></li>
-            <li><a href='../PHP/discounts.php' target ='_blank'>Set Customer Discount</a></li>
-            <li><a href='../PHP/customer.php' target ='_blank'>Set Customer Status</a></li>
->>>>>>> c295ca434d854a5c7ff269ca0c2512d4fb5f3b0d
           </ul>
         </div>";
       } else {
@@ -47,7 +36,6 @@
     if (isset($_SESSION['user_Type'])) {
       if ($_SESSION['user_Type'] == 'Administrator') {
         echo "
-<<<<<<< HEAD
         <div class='col-md'>
           <ul class='hPageActive'>
             <h4>Administrator</h4>
@@ -58,19 +46,6 @@
           </ul>
         </div>";
       } else {
-=======
-            <div class='homepage_Lists'>
-              <h2>Administrator</h2>
-              <ul>
-                <li><a href='a_Account_Creation.php' target ='_blank'>Create Account</a></li>
-                <li><a href='add_blanks.php' target ='_blank'>Add Blanks</a></li>
-                <li><a href='backups.php' target ='_blank'>Create Backup</a></li>
-                <li><a href='backups.php' target ='_blank'>Restore Backup</a></li>
-              </ul>
-            </div>";
-      }
-      else {
->>>>>>> c295ca434d854a5c7ff269ca0c2512d4fb5f3b0d
         echo "
         <div class='col-md'>
           <ul class='hPageInactive'>
@@ -86,7 +61,6 @@
     if (isset($_SESSION['user_Type'])) {
       if($_SESSION['user_Type'] == 'Advisor' || $_SESSION['user_Type'] == 'Management') {
         echo "
-<<<<<<< HEAD
         <div class='col-md'>
           <ul class='hPageActive'>
             <h4>Sales</h4>
@@ -95,18 +69,6 @@
           </ul>
         </div>";
       } else {
-=======
-          <div class='homepage_Lists'>
-            <h2>Sales</h2>
-            <ul>
-              <li><a href='sales.php' target ='_blank'>Create Sale</a></li>
-              <li><a href='sales.php' target ='_blank'>Cancel Ticket</a></li>
-            </ul>
-          </div>";
-      }
-
-      else {
->>>>>>> c295ca434d854a5c7ff269ca0c2512d4fb5f3b0d
         echo "
         <div class='col-md'>
           <ul class='hPageInactive'>
@@ -120,7 +82,6 @@
     if (isset($_SESSION['user_Type'])) {
       if($_SESSION['user_Type'] == 'Advisor')  {
         echo "
-<<<<<<< HEAD
         <div class='col-md'>
           <ul class='hPageActive'>
             <h4>Reports</h4>
@@ -140,37 +101,6 @@
               <li><a href='../PHP/ISRL.php' target='_blank'>Individual Sales Report Interline</a></li>
               <li><a href='../PHP/GSRL.php' target='_blank'>Global Sales Report Local</a></li>
               <li><a href='../PHP/GSRI.php' target='_blank'>Global Sales Report Interline</a></li>
-=======
-          <div class='homepage_Lists'>
-            <h2>Reports</h2>
-            <ul>
-              <li><a href='' target ='_blank'>View Refund Records</a></li>
-              <li><a href='../PHP/TST_pdf.php' target ='_blank'>Ticket Stock Turnover Report</a></li>
-              <li><a href='../PHP/ISRI.php' target ='_blank'>Individual Sales Report Local</a></li>
-              <li><a href='../PHP/ISRL.php' target ='_blank'>Individual Sales Report Interline</a></li>
-            </ul>
-          </div>";
-      } else if ($_SESSION['user_Type'] == 'Management') {
-        echo "
-          <div class='homepage_Lists'>
-            <h2>Reports</h2>
-            <ul>
-              <li><a href='' target ='_blank'>View Refund Records</a></li>
-              <li><a href='../PHP/TST_pdf.php' target ='_blank'>Ticket Stock Turnover Report</a></li>
-              <li><a href='../PHP/ISRI.php' target ='_blank'>Individual Sales Report Local</a></li>
-              <li><a href='../PHP/ISRL.php' target ='_blank'>Individual Sales Report Interline</a></li>
-              <li><a href='../PHP/GSRL.php' target ='_blank'>Global Sales Report Local</a></li>
-              <li><a href='../PHP/GSRI.php' target ='_blank'>Global Sales Report Interline</a></li>
-            </ul>
-          </div>";
-      } else {
-        echo "
-          <div class='homepage_Lists'>
-            <h2>Reports</h2>
-            <ul>
-              <li><a>View Reports</a></li>
-              <li><a>View Refund Records</a></li>
->>>>>>> c295ca434d854a5c7ff269ca0c2512d4fb5f3b0d
             </ul>
           </div>";
       } else {

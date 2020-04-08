@@ -211,18 +211,6 @@
           <div id="submit"></div>
         </form>
       </div>
-<<<<<<< HEAD
-=======
-      <div>
-        <h3>Refund a Sale</h3>
-        <form action="../PHP/refund.php" method="post">
-          <label for="refundID">Enter ticket:</label>
-          <input type="text" name="refundID"/>
-          <button type="submit" name="refund_Submission">Submit</button>
-        </form>
-      </div>
-      <!--Second element of the container AKA the table that shows all the sales so far -->
->>>>>>> c295ca434d854a5c7ff269ca0c2512d4fb5f3b0d
       <div>
         <h3>Refund a Sale</h3>
         <form action="../PHP/refund.php" method="post">
