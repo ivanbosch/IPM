@@ -6,8 +6,8 @@ $(document).ready(function(){
     restoreButton: false,
     hideIdentifier: false,
     columns: {
-      identifier: [0, 'blank_ID'],
-      editable: [[1, 'login_username']]
+      identifier: [4, 'Blank'],
+      editable: [[0, 'login_username']]
     },
     onDraw: function() {
     console.log('onDraw()');

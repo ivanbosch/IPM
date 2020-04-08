@@ -57,19 +57,18 @@
   </form>
 
   <!-- Search for blank type-->
-  <input type="text" id="blankSearch" onkeyup="search(5, id)" placeholder="Search for blank..." name="search">
+  <input type="text" id="blankSearch" onkeyup="search(4, id)" placeholder="Search for blank..." name="search">
 
   <input type="text" id="advisorSearch" onkeyup="search(1, id)" placeholder="Search for username..." name="search">
 
 <table id= "editable-table" class="table">
   <thead class="thead-dark">
     <tr>
-      <th>Blank ID</th>
       <th>Username</th>
       <th>Staff ID</th>
       <th>Surname</th>
       <th>Name</th>
-      <th>Blanks</th>
+      <th>Blank</th>
     </tr>
   </thead>
   <tbody>
@@ -86,13 +85,13 @@
       //while loop to go thorugh the result of the query row by row
       while($row = mysqli_fetch_assoc($result)) {
         ?>
+
       <tr>
-        <td class="table-info"><?php echo  $row ['blank_ID']; ?></td>
         <td class="table-info"><?php echo  $row ['login_username']; ?></td>
         <td class="table-info"><?php echo  $row ['blank_Advisor_ID']; ?></td>
         <td class="table-info"><?php echo $row['staff_Surname']; ?></td>
         <td class="table-info"><?php echo $row['staff_Name']; ?></td>
-        <td class="table-info"><?php echo  $row ['blank_Type']; ?></td>
+        <td class="table-info"><?php echo  $row ['blank_Type']."-".$row['blank_ID']; ?></td>
       </tr>
 
  <?php } ?>
