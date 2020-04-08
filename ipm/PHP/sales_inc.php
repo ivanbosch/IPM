@@ -35,6 +35,17 @@ if (isset($_POST["coupon_Submission"])) {
   $charge =  $_POST['sales_Charge'];
   $coupon_Amount = intval($_POST['coupon_Amount']);
 
+  if (isset($_POST['late_Payment'])) {
+    $query = $db->query("SELECT customer_Type, customer_Debt FROM customers WHERE customer_Email = '$customerEmail'");
+    $result = $query->fetch_assoc();
+    if ($result['customer_Type'] == 'Regular' || $result['customer_Type'] == 'Valued') {
+      $debt = $result['customer_Debt'] + $charge;
+      $db->query("UPDATE customers SET customer_Debt='$debt' WHERE customer_Email = '$customerEmail'");
+    } else {
+      header("Location: ../html/sales.php?error=NotEligibleCustomer");
+      exit();
+      }
+  }
   //Generate blank
   $blankSql = "SELECT blank_ID FROM blanks
           WHERE NOT EXISTS (SELECT blank_ID FROM coupons
@@ -50,7 +61,6 @@ if (isset($_POST["coupon_Submission"])) {
   } else {
     $blank_Row = mysqli_fetch_assoc($blankSTMT);
   }
-
 
   //Create a ticket
   $ticketSql = "INSERT INTO tickets (ticket_ID) VALUES (NULL);";
@@ -100,6 +110,13 @@ if (isset($_POST["coupon_Submission"])) {
     $customerExec = mysqli_query($db, $customerSQL);
     $customerResult = mysqli_fetch_assoc($customerExec);
     $customerID = $customerResult['customer_ID'];
+    if (isset($customerResult['discount_ID'])) {
+      $x = $customerResult["discount_ID"];
+      $discountSQL = "SELECT * FROM discounts WHERE discount_ID='$x'";
+      $discountResult = $db->query($discountSQL);
+      $discount = $discountResult->fetch_assoc();
+      $charge = ($charge*(100-$discount['discount_Amount']))/100;
+    }
     //Get the currency rate so that it can be inserted into the sales table
     $currencySQL = "SELECT * FROM currency WHERE currency_ID = '".$currencyID."'";
     $currencyResult = mysqli_query($db, $currencySQL);

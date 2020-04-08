@@ -6,6 +6,7 @@
     <title></title>
   </head>
   <body class="alert_Container">
+
     <h1>Late Payments:</h1>
     <?php
       //Set today's date

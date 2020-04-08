@@ -332,7 +332,7 @@ class myPDF extends FPDF {
     $fetchRate = $db->query("SELECT currency_Rate from currency WHERE currency_ID = $currency");
     $fetchRow = $fetchRate->fetch_assoc();
     $usdRate = $fetchRow['currency_Rate'];
-    $result = $db->query("SELECT staff_ID AS ID, sales_Charge AS Charge, commission_Rate AS Rate, currency_ID AS c_ID FROM sales WHERE sales_Type = 'Interline' AND (currency_ID = '1' OR currency_ID='$currency')");
+    $result = $db->query("SELECT staff_ID AS ID, sales_Charge AS Charge, commission_Rate AS Rate, currency_ID AS c_ID FROM sales WHERE sales_Type = 'Interline'");
     $commissions = $db->query("SELECT commission_Rate FROM commissions WHERE commission_Type = 'Interline'");
     $commissionTotal= array();
     while ($com = $commissions->fetch_assoc()) {
