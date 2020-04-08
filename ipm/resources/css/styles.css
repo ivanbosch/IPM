@@ -55,7 +55,7 @@
 .form .register-form {
   display: none;
 }
-.container {
+/* .container {
   position: relative;
   z-index: 1;
   max-width: 300px;
@@ -65,7 +65,7 @@
   content: "";
   display: block;
   clear: both;
-}
+} */
 .container .info {
   margin: 50px auto;
   text-align: center;
@@ -88,13 +88,157 @@
 .container .info span .fa {
   color: #EF3B3A;
 }
-body {
-  background: #76b852; /* fallback for old browsers */
+ body {
+  font-family: 'Roboto', sans-serif;
+  background-color: white;
+  /* background: #f2f2f2; added new color to test fallback for old browsers
   background: -webkit-linear-gradient(right, #76b852, #8DC26F);
   background: -moz-linear-gradient(right, #76b852, #8DC26F);
   background: -o-linear-gradient(right, #76b852, #8DC26F);
   background: linear-gradient(to left, #76b852, #8DC26F);
+  height: 100%;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; */
+
 }
+
+/*newly added css*/
+
+#navigationBar li{
+  font-family: "Roboto", sans-serif;
+  background: #92cc72;
+}
+#shwTblBlank a, #shwTblStaff a, #shwTblCustomer a, #shwTblDiscount a{
+  font-family: "Roboto", sans-serif;
+  text-decoration: none;
+  color: black;
+}
+#shwTblBlank:hover, #shwTblStaff:hover, #shwTblCustomer:hover, #shwTblDiscount:hover{
+  background: #b3b3b3;
+  -webkit-transition: background-color 0.5s ease-out;
+  -moz-transition: background-color 0.5s ease-out;
+  -o-transition: background-color 0.5s ease-out;
+  transition: background-color 0.5s ease-out;
+}
+#pageM{
+
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+#navigationBar li a:hover{
+  background: #43A047;
+  cursor: pointer;
+  -webkit-transition: background-color 0.5s ease-out;
+  -moz-transition: background-color 0.5s ease-out;
+  -o-transition: background-color 0.5s ease-out;
+  transition: background-color 0.5s ease-out;
+}
+#navigationBar button{
+  border-radius: 1px;
+}
+.btn:hover{
+  border-radius: 1px;
+  font-weight: bold;
+}
+/* ---------button in new user page--------- */
+.cAcc{
+  border-radius: 1px;
+  color:white;
+  background-color:#4CAF50;
+}
+.cAcc:hover{
+  color:white;
+}
+/* ----------------------------------------- */
+.hPageActive{
+  list-style-type: none;
+}
+.hPageActive a{
+  display:block;
+  text-decoration: none;
+  color: #000000;
+}
+.hPageActive li:hover{
+  background-color: #b3b3b3;
+}
+.hPageInactive{
+  list-style-type: none;
+  color: gray;
+}
+#hPageInactive a{
+  color:gray;
+
+}
+/* inactive items in active menu lists */
+.hPageActive #hPageInactive:hover{
+  background-color: #f2f2f2;
+}
+/* --------------------- */
+#shwTblBlank, #shwTblStaff, #shwTblCustomer, #shwTblDiscount{
+  margin-bottom: 1%;
+}
+#shwTblBlank a, #shwTblStaff a, #shwTblCustomer a, #shwTblDiscount a{
+  display:block;
+}
+#navigationBar{
+  background-color: #92cc72;
+}
+#navLogo{
+  font-weight: bold;
+}
+#hPageActive h4,#hPageActive h4{
+  /* text-decoration:none; */
+  font-weight: bold;
+  }
+#alertRow{
+  margin:1%;
+}
+#alertCol{
+  padding:1%;
+  border-radius: 5px;
+}
+#alertHeader{
+  background-color: #92cc72;
+}
+#tableContainer{
+  border:solid 1px;
+  border-color: #b3b3b3;
+  margin-bottom: 1%;
+  background-color:#f2f2f2;
+}
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: rgba(126, 239, 104, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+  outline: 0 none;
+}
+/* .custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #92cc72;
+  background-color: #92cc72;
+} */
+/* .homeMenu{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* end of newly added css*/
