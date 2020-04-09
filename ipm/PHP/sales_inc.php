@@ -23,15 +23,7 @@ if (isset($_POST["coupon_Submission"])) {
   $saleType = $_POST['sale_Type'];
   $currencyID = $_POST['currency_ID'];
   $paymentType = $_POST['payment_Type'];
-  if (isset($_POST['card_Digits'])) {
-    $cardDetails = $_POST['card_Digits'];
-    $salesSQL = "INSERT INTO sales(sales_Type, staff_ID, currency_ID, currency_Rate, customer_ID, ticket_ID, sales_Charge, payment_Type, card_Digits)
-                 VALUES (?,?,?,?,?,?,?,?, $cardDetails)";
-  } else {
-    $cardDetails = "";
-    $salesSQL = "INSERT INTO sales(sales_Type, staff_ID, currency_ID, currency_Rate, customer_ID, ticket_ID, sales_Charge, payment_Type)
-                 VALUES (?,?,?,?,?,?,?,?)";
-  }
+  $date = date('Y-m-d');
   $charge =  $_POST['sales_Charge'];
   $coupon_Amount = intval($_POST['coupon_Amount']);
 
@@ -40,7 +32,7 @@ if (isset($_POST["coupon_Submission"])) {
     $result = $query->fetch_assoc();
     if ($result['customer_Type'] == 'Regular' || $result['customer_Type'] == 'Valued') {
       $debt = $result['customer_Debt'] + $charge;
-      $db->query("UPDATE customers SET customer_Debt='$debt' WHERE customer_Email = '$customerEmail'");
+      $db->query("UPDATE customers SET customer_Debt='$debt', customer_LP='$date' WHERE customer_Email = '$customerEmail'");
     } else {
       header("Location: ../html/sales.php?error=NotEligibleCustomer");
       exit();
@@ -122,21 +114,34 @@ if (isset($_POST["coupon_Submission"])) {
     $currencyResult = mysqli_query($db, $currencySQL);
     $currencyRate = mysqli_fetch_assoc($currencyResult);
 
+    //Get the commission
+    $commissionSQL = $db->query("SELECT commission_ID FROM staff WHERE staff_ID='$user_ID'");
+    $commissionResult = $commissionSQL->fetch_assoc();
+    $commissionID = $commissionResult['commission_ID'];
+    $commissionSQL = $db->query("SELECT commission_Rate FROM commissions WHERE commission_ID='$commissionID'");
+    $commissionResult1 = $commissionSQL->fetch_assoc();
+    $commissionRate = intval($commissionResult1['commission_Rate']);
+
+    $salesSQL = "INSERT INTO sales(sales_Type, staff_ID, currency_ID, currency_Rate, customer_ID, ticket_ID, sales_Charge, payment_Type, commission_Rate)
+                 VALUES (?,?,?,?,?,?,?,?,?)";
     $salesSTMT = mysqli_stmt_init($db);
     if(!mysqli_stmt_prepare($salesSTMT, $salesSQL)) {
       header("Location: ../html/sales.php?error=salesqlerror");
       exit();
     } else {
-      mysqli_stmt_bind_param($salesSTMT, "siiiiiis", $saleType, $user_ID, $currencyID, $currencyRate['currency_Rate'], $customerID, $ticketId, $charge, $paymentType);
+      mysqli_stmt_bind_param($salesSTMT, "siiiiiisi", $saleType, $user_ID, $currencyID, $currencyRate['currency_Rate'], $customerID, $ticketId, $charge, $paymentType, $commissionRate);
       mysqli_stmt_execute($salesSTMT);
+
+      if (isset($_POST['card_Digits'])) {
+        $cardDetails = $_POST['card_Digits'];
+        $db->query("UPDATE sales SET card_Digits='$cardDetails' WHERE ticket_ID='$ticketId'");
+      }
 
       header("Location: ../html/sales.php?saleSuccessful");
       exit();
     }
     mysqli_close($db);
-}
-
-else {
+} else {
   header("Location: ../html/sales.php?error=unauthorizedaccess");
   exit();
 }
