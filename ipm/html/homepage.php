@@ -95,7 +95,7 @@
           <div class='col-md'>
             <ul class='hPageActive'>
               <h4>Reports</h4>
-              <li><a href=''>View Refund Records</a></li>
+              <li><a href='../PHP/refund_log.txt' download>View Refund Records</a></li>
               <li><a href='../PHP/TST_pdf.php' target='_blank'>Ticket Stock Turnover Report</a></li>
               <li><a href='../PHP/ISRI.php' target='_blank'>Individual Sales Report Local</a></li>
               <li><a href='../PHP/ISRL.php' target='_blank'>Individual Sales Report Interline</a></li>

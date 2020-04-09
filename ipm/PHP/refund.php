@@ -32,7 +32,7 @@ if (isset($_POST['refund_Submission'])) {
   $db->query("DELETE FROM coupons WHERE ticket_ID=$ticketID");
   $db->query("DELETE FROM tickets WHERE ticket_ID=$ticketID");
 
-  header("Location: ../html/sales.php?error=unauthorizedaccess");
+  header("Location: ../html/sales.php?success");
   exit();
 
 } else {
