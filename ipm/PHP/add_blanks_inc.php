@@ -34,6 +34,23 @@ if(isset($_POST['blanks_submit'])) {
   }
   mysqli_stmt_close($stmt);
   mysqli_close($db);
+} else if(isset($_POST['remove_Submit'])){
+  require 'connection.php';
+  $blankType = $_POST['remove'];
+  $range = $_POST['removeAmount'];
+  if(empty($blankType || $range)) {
+    header("Location: ../html/add_blanks.php?error=emptyfields");
+    exit();
+  }else{
+    //filtering out the used blanks
+    $db->query("DELETE FROM blanks
+    WHERE NOT EXISTS (SELECT blank_ID FROM coupons
+    WHERE blanks.blank_ID = coupons.blank_ID)
+    AND blank_Type = '$blankType' LIMIT $range ");
+
+     header("Location: ../html/add_blanks.php?addition=successfullyremoved");
+     exit();
+  }
 }
 
 else {

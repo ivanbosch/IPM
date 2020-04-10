@@ -11,9 +11,16 @@ $validUsername = mysqli_query($db, "SELECT login_username FROM log_in WHERE logi
 
 $id = substr($input['Blank'], 4);
 
-if ($input['action'] === 'edit' && mysqli_num_rows($validUsername) > 0) {
-  $query = "UPDATE blanks SET blank_Advisor_ID = (SELECT staff_ID FROM log_in WHERE login_username = '$username') WHERE blank_ID = '$id' ";
-  mysqli_query($db, $query);
+$ifUsed = mysqli_query($db, "SELECT * FROM coupons WHERE blank_ID = '$id' ");
+
+if ($input['action'] === 'edit' && mysqli_num_rows($ifUsed) == 0) {
+  if(empty($username)){
+    $remove = "UPDATE blanks SET blank_Advisor_ID = NULL WHERE blank_ID = '$id' ";
+    mysqli_query($db, $remove);
+  }else if(mysqli_num_rows($validUsername) > 0){
+    $reassign = "UPDATE blanks SET blank_Advisor_ID = (SELECT staff_ID FROM log_in WHERE login_username = '$username') WHERE blank_ID = '$id' ";
+    mysqli_query($db, $reassign);
+  }
 }
 echo json_encode($input);
 ?>

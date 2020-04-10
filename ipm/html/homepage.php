@@ -40,7 +40,7 @@
           <ul class='hPageActive'>
             <h4>Administrator</h4>
             <li><a href='a_Account_Creation.php'>Create Account</a></li>
-            <li><a href='add_blanks.php'>Add Blanks</a></li>
+            <li><a href='add_blanks.php'>Add or remove blanks</a></li>
             <li><a href='backups.php'>Create Backup</a></li>
             <li><a href='backups.php'>Restore Backup</a></li>
           </ul>
@@ -51,7 +51,7 @@
           <ul class='hPageInactive'>
             <h4>Administrator</h4>
             <li><a>Create Account</a></li>
-            <li><a>Add Blanks</a></li>
+            <li><a>Add or remove blanks</a></li>
             <li><a>Create Backup</a></li>
             <li><a>Restore Backup</a></li>
           </ul>
