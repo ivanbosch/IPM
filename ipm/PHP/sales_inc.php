@@ -115,12 +115,21 @@ if (isset($_POST["coupon_Submission"])) {
     $currencyRate = mysqli_fetch_assoc($currencyResult);
 
     //Get the commission
-    $commissionSQL = $db->query("SELECT commission_ID FROM staff WHERE staff_ID='$user_ID'");
-    $commissionResult = $commissionSQL->fetch_assoc();
-    $commissionID = $commissionResult['commission_ID'];
-    $commissionSQL = $db->query("SELECT commission_Rate FROM commissions WHERE commission_ID='$commissionID'");
-    $commissionResult1 = $commissionSQL->fetch_assoc();
-    $commissionRate = intval($commissionResult1['commission_Rate']);
+    if ($saleType == 'Interline') {
+      $commissionSQL = $db->query("SELECT commission_Interline FROM staff WHERE staff_ID='$user_ID'");
+      $commissionResult = $commissionSQL->fetch_assoc();
+      $commissionID = $commissionResult['commission_Interline'];
+      $commissionSQL = $db->query("SELECT commission_Rate FROM commissions WHERE commission_ID='$commissionID'");
+      $commissionResult1 = $commissionSQL->fetch_assoc();
+      $commissionRate = intval($commissionResult1['commission_Rate']);
+    } else if ($saleType == 'Domestic') {
+      $commissionSQL = $db->query("SELECT commission_Local FROM staff WHERE staff_ID='$user_ID'");
+      $commissionResult = $commissionSQL->fetch_assoc();
+      $commissionID = $commissionResult['commission_Local'];
+      $commissionSQL = $db->query("SELECT commission_Rate FROM commissions WHERE commission_ID='$commissionID'");
+      $commissionResult1 = $commissionSQL->fetch_assoc();
+      $commissionRate = intval($commissionResult1['commission_Rate']);
+    }
 
     $salesSQL = "INSERT INTO sales(sales_Type, staff_ID, currency_ID, currency_Rate, customer_ID, ticket_ID, sales_Charge, payment_Type, commission_Rate)
                  VALUES (?,?,?,?,?,?,?,?,?)";

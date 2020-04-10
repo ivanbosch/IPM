@@ -100,7 +100,8 @@
               <li><a href='../PHP/ISRI.php' target='_blank'>Individual Sales Report Local</a></li>
               <li><a href='../PHP/ISRL.php' target='_blank'>Individual Sales Report Interline</a></li>
               <li><a href='../PHP/GSRL.php' target='_blank'>Global Sales Report Local</a></li>
-              <li><a href='../PHP/GSRI.php' target='_blank'>Global Sales Report Interline</a></li>
+              <li><a href='../PHP/GSRI.php' target='_blank'>Global Sales Report Interline Per Advisor</a></li>
+              <li><a href='../PHP/GSRIU.php' target='_blank'>Global Sales Report Interline Per USD Rate</a></li>
             </ul>
           </div>";
       } else {
