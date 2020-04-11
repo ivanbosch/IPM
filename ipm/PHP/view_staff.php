@@ -16,12 +16,14 @@
         <th>Surname</th>
         <th>Name</th>
         <th>Email</th>
-        <th>Commission ID</th>
+        <th>Interline commission</th>
+        <th>Domestic commission</th>
       </tr>
     </thead>
     <tbody>
       <?php
-        $staff = mysqli_query($db, "SELECT * FROM staff"); // query to select all staff
+        $staff = mysqli_query($db, "SELECT staff.staff_ID, staff.staff_Type, staff.staff_Surname, staff.staff_Name, staff.staff_Email, staff.commission_Interline, staff.commission_Local
+           FROM staff"); // query to select all staff
         while($row = mysqli_fetch_assoc($staff)){
           ?>
           <tr>
@@ -30,7 +32,8 @@
             <td bgcolor="#9933ff"><?php echo  $row ['staff_Surname']; ?></td>
             <td bgcolor="#9933ff"><?php echo $row['staff_Name']; ?></td>
             <td bgcolor="#9933ff"><?php echo $row['staff_Email']; ?></td>
-            <td bgcolor="#9933ff"><?php echo  $row ['commission_ID']; ?></td>
+            <td bgcolor="#9933ff"><?php echo  $row ['commission_Interline']; ?></td>
+            <td bgcolor="#9933ff"><?php echo  $row ['commission_Local']; ?></td>
           </tr>
       <?php  } ?>
     </tbody>

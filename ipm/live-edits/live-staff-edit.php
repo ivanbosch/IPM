@@ -3,11 +3,18 @@ require "../PHP/connection.php";
 
 $input = filter_input_array(INPUT_POST);
 
-$commission = (int)mysqli_real_escape_string($db, $input["commission_ID"]);
-$validCommission = mysqli_query($db, "SELECT commission_ID from commissions WHERE commission_ID = $commission");
 
-if($input['action'] === 'edit' && mysqli_num_rows($validCommission) > 0){
-  mysqli_query($db, "UPDATE staff SET commission_ID = '".$commission."' WHERE staff_ID = '".$input["staff_ID"]."'");
+if($input['action'] === 'edit'){
+  $updateField = '';
+  if(isset($input["interline"])){
+    $updateField.= "commission_Interline='".$input["interline"]."'";
+  }else if(isset($input["domestic"])){
+    $updateField.= "commission_Local='".$input["domestic"]."'";
+  }
+  if($updateField && $input["staff_ID"]){
+    $query = "UPDATE staff SET $updateField WHERE staff_ID = '".$input["staff_ID"]."' ";
+    mysqli_query($db, $query);
+  }
 }
 
 echo json_encode($input);
