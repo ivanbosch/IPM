@@ -219,6 +219,23 @@
           <button type="submit" name="refund_Submission">Submit</button>
         </form>
       </div>
+      <div>
+        <h3>Submit a Late Payment</h3>
+        <form action="../PHP/late_Submission.php" method="post">
+          <div> <!-- ENTER CUSTOMER DETAILS SUCH AS NAME, SURNAME, EMAIL -->
+            <label for="customer_Name">Enter Name: </label>
+            <input type="text" name="late_Name" required>
+            <label for="customer_Surname">Enter Surname: </label>
+            <input type="text" name="late_Surname" required>
+            <br>
+            <label for="email">Enter Email:</label>
+            <input type="email" name="late_Email" required>
+          </div>
+          <label for="LateID">Enter Amount:</label>
+          <input type="number" name="LateID" min="1"/>
+          <button type="submit" name="late_Submission">Submit</button>
+        </form>
+      </div>
     </div>
   </body>
 </html>
