@@ -25,7 +25,7 @@
 </style>
 <input type="text" id="blankSearch" onkeyup="search(4, id)" placeholder="Search for blank..." name="search">
 
-<input type="text" id="advisorSearch" onkeyup="search(3, id)" placeholder="Search for name..." name="search">
+<input type="text" id="advisorSearch" onkeyup="search(0, id)" placeholder="Search for name..." name="search">
 <table id= "blank-table" class="table">
   <thead class="thead-dark">
     <tr>
