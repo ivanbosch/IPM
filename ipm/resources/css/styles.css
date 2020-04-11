@@ -1,5 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+
+
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -90,7 +92,6 @@
 }
  body {
   font-family: 'Roboto', sans-serif;
-  background-color: white;
   /* background: #f2f2f2; added new color to test fallback for old browsers
   background: -webkit-linear-gradient(right, #76b852, #8DC26F);
   background: -moz-linear-gradient(right, #76b852, #8DC26F);
@@ -100,8 +101,8 @@
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
-
-}
+  
+} 
 
 /*newly added css*/
 
@@ -122,7 +123,7 @@
   transition: background-color 0.5s ease-out;
 }
 #pageM{
-
+  
   font-family: "Roboto", sans-serif;
   font-weight: bold;
   padding-top: 2%;
@@ -151,6 +152,7 @@
 }
 .cAcc:hover{
   color:white;
+  background-color: #43A047;
 }
 /* ----------------------------------------- */
 .hPageActive{
@@ -170,7 +172,7 @@
 }
 #hPageInactive a{
   color:gray;
-
+  
 }
 /* inactive items in active menu lists */
 .hPageActive #hPageInactive:hover{
@@ -224,7 +226,7 @@ input[type="url"]:focus,
 input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
-.uneditable-input:focus {
+.uneditable-input:focus {   
   border-color: rgba(126, 239, 104, 0.8);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
   outline: 0 none;
@@ -241,4 +243,4 @@ input[type="color"]:focus,
   align-items: center;
 } */
 
-/* end of newly added css*/
+/* end of newly added css*/ 
